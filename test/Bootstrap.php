@@ -1,10 +1,10 @@
 <?php
 namespace ZfcBaseTest;
 
-use Zend\Loader\AutoloaderFactory;
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Loader\AutoloaderFactory;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Stdlib\ArrayUtils;
 use RuntimeException;
 
 error_reporting(E_ALL | E_STRICT);
@@ -67,15 +67,15 @@ class Bootstrap
         $zf2Path = getenv('ZF2_PATH') ?: (defined('ZF2_PATH') ? ZF2_PATH : (is_dir($vendorPath . '/ZF2/library') ? $vendorPath . '/ZF2/library' : false));
 
         if (!$zf2Path) {
-            throw new RuntimeException('Unable to load ZF2. Run `php composer.phar install` or define a ZF2_PATH environment variable.');
+            throw new RuntimeException('Unable to load Laminas. Run `php composer.phar install` or define a ZF2_PATH environment variable.');
         }
 
         if (isset($loader)) {
-            $loader->add('Zend', $zf2Path . '/Zend');
+            $loader->add('Laminas', $zf2Path . '/Laminas');
         } else {
-            include $zf2Path . '/Zend/Loader/AutoloaderFactory.php';
+            include $zf2Path . '/Laminas/Loader/AutoloaderFactory.php';
             AutoloaderFactory::factory(array(
-                'Zend\Loader\StandardAutoloader' => array(
+                'Laminas\Loader\StandardAutoloader' => array(
                     'autoregister_zf' => true,
                     'namespaces' => array(
                         __NAMESPACE__ => __DIR__ . '/' . __NAMESPACE__,
